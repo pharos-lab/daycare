@@ -28,6 +28,7 @@ class RolePermissionSeeder extends Seeder
             
             // Parent permissions
             'parent.manage',
+            'parent.view',
             
             // Transmission permissions
             'transmission.manage',
