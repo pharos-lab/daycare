@@ -41,7 +41,90 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+/**
+ * Create an admin user
+ */
+function createAdmin(array $attributes = []): User
 {
-    // ..
+    $user = User::factory()->create($attributes);
+    $user->assignRole('admin');
+    
+    return $user;
+}
+
+/**
+ * Create a director user
+ */
+function createDirector(array $attributes = []): User
+{
+    $user = User::factory()->create($attributes);
+    $user->assignRole('director');
+    
+    return $user;
+}
+
+/**
+ * Create a staff user
+ */
+function createStaff(array $attributes = []): User
+{
+    $user = User::factory()->create($attributes);
+    $user->assignRole('staff');
+    
+    return $user;
+}
+
+/**
+ * Create a parent user
+ */
+function createParent(array $attributes = []): User
+{
+    $user = User::factory()->create($attributes);
+    $user->assignRole('parent');
+    
+    return $user;
+}
+
+/**
+ * Act as an authenticated admin
+ */
+function actingAsAdmin(array $attributes = []): User
+{
+    $admin = createAdmin($attributes);
+    test()->actingAs($admin);
+    
+    return $admin;
+}
+
+/**
+ * Act as an authenticated director
+ */
+function actingAsDirector(array $attributes = []): User
+{
+    $director = createDirector($attributes);
+    test()->actingAs($director);
+    
+    return $director;
+}
+
+/**
+ * Act as an authenticated staff member
+ */
+function actingAsStaff(array $attributes = []): User
+{
+    $staff = createStaff($attributes);
+    test()->actingAs($staff);
+    
+    return $staff;
+}
+
+/**
+ * Act as an authenticated parent
+ */
+function actingAsParent(array $attributes = []): User
+{
+    $parent = createParent($attributes);
+    test()->actingAs($parent);
+    
+    return $parent;
 }
