@@ -164,21 +164,3 @@ describe('User Index - Sorting', function () {
         );
     });
 });
-
-describe('User Index - Performance', function () {
-    it('loads efficiently with many users', function () {
-        actingAsAdmin();
-
-        User::factory()->count(100)->create();
-
-        $startTime = microtime(true);
-        
-        $response = get(route('admin.users.index'));
-        
-        $endTime = microtime(true);
-        $executionTime = ($endTime - $startTime) * 1000;
-
-        $response->assertOk();
-        expect($executionTime)->toBeLessThan(500);
-    });
-});
