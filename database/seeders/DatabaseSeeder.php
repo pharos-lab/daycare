@@ -13,11 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
-        User::factory()->withoutTwoFactor()->create([
-            'name' => 'mth',
-            'email' => 'mthdht@gmail.com',
-        ]);
+        $this->call(RolePermissionSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }
