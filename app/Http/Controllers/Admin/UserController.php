@@ -30,7 +30,7 @@ class UserController extends Controller
                 $query->role($role);
             })
             ->when($request->sort, function ($query, $sort) use ($request) {
-                $direction = $request->direction ?? 'asc';
+                $direction = $request->direction ?? 'desc';
                 $query->orderBy($sort, $direction);
             }, function ($query) {
                 $query->latest();

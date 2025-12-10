@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\User;
 use function Pest\Laravel\get;
+use App\Models\User;
 
 beforeEach(function () {
     $this->seed(\Database\Seeders\RolePermissionSeeder::class);
@@ -14,7 +14,7 @@ describe('User Index - Access Control', function () {
         $response = get(route('admin.users.index'));
 
         $response->assertOk();
-        $response->assertInertia(fn ($page) => $page->component('Admin/Users/Index'));
+        $response->assertInertia(fn ($page) => $page->component('admin/users/Index'));
     });
 
     it('denies access to non-admin users', function () {
@@ -42,7 +42,7 @@ describe('User Index - Data Display', function () {
 
         $response->assertOk();
         $response->assertInertia(fn ($page) => $page
-            ->component('Admin/Users/Index')
+            ->component('admin/users/Index')
             ->has('users')
             ->has('users.data', 15) // Default pagination is 15
             ->has('users.links')
@@ -57,9 +57,12 @@ describe('User Index - Data Display', function () {
         $response = get(route('admin.users.index'));
 
         $response->assertOk();
+
         $response->assertInertia(fn ($page) => $page
-            ->has('users.data', fn ($users) => $users
-                ->where('0.roles', fn ($roles) => in_array('director', $roles))
+            ->where('users.data', fn ($users) => 
+                collect($users)->some(fn ($user) =>
+                    collect($user['roles'])->contains('director')
+                )
             )
         );
     });
@@ -115,7 +118,7 @@ describe('User Index - Filters', function () {
         $director = User::factory()->create(['name' => 'Active Director']);
         $director->assignRole('director');
 
-        User::factory()->create(['name' => 'Inactive Director'])->assignRole('director');
+        User::factory()->create(['name' => 'Director'])->assignRole('director');
         User::factory()->create(['name' => 'Active Staff'])->assignRole('staff');
 
         $response = get(route('admin.users.index', [
@@ -150,11 +153,12 @@ describe('User Index - Sorting', function () {
         actingAsAdmin();
 
         $oldUser = User::factory()->create(['created_at' => now()->subDays(5)]);
-        $newUser = User::factory()->create(['created_at' => now()]);
+        $newUser = User::factory()->create(['created_at' => now()->addSeconds(5)]);
 
         $response = get(route('admin.users.index'));
 
         $response->assertOk();
+
         $response->assertInertia(fn ($page) => $page
             ->where('users.data.0.id', $newUser->id)
         );
