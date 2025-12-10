@@ -2,11 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EnsureHasRole;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::middleware(['auth', EnsureHasRole::class . ':admin'])
      ->prefix('admin')
      ->name('admin.')
      ->group(function () {
+          Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
          Route::resource('users', UserController::class);
         //  Route::resource('daycares', DaycareController::class);
         //  Route::resource('messages', MessageController::class);
