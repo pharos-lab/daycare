@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { getRoleBadgeColor } from '@/lib/utils';
-import { dashboard } from '@/routes/admin';
+import admin, { dashboard } from '@/routes/admin';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
-import { Users, UserCheck, Building2 } from 'lucide-vue-next';
+import { Head, Link } from '@inertiajs/vue3';
+import { Users, UserCheck, Building2, Eye } from 'lucide-vue-next';
 
 interface Stats {
     total_users: number;
@@ -121,32 +121,9 @@ const roleCards = [
             </div>
 
             <!-- Users by Role & Recent Users -->
-            <div class="grid gap-4 md:grid-cols-3">
-                <!-- Users by Role Card -->
-                <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 bg-card dark:border-sidebar-border">
-                    <div class="border-b border-sidebar-border/70 px-6 py-4 dark:border-sidebar-border">
-                        <h2 class="font-semibold">Users by Role</h2>
-                    </div>
-                    <div class="p-6">
-                        <div class="space-y-4">
-                            <div
-                                v-for="role in roleCards"
-                                :key="role.title"
-                                class="flex items-center justify-between"
-                            >
-                                <div class="flex items-center gap-3">
-                                    <div :class="[role.color, 'flex h-10 w-10 items-center justify-center rounded-full text-white font-bold']">
-                                        {{ role.value }}
-                                    </div>
-                                    <span class="font-medium">{{ role.title }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="recent-users">
                 <!-- Recent Users Card -->
-                <div class="relative col-span-2 overflow-hidden rounded-xl border border-sidebar-border/70 bg-card dark:border-sidebar-border">
+                <div class="relative col-span-3 overflow-hidden rounded-xl border border-sidebar-border/70 bg-card dark:border-sidebar-border">
                     <div class="border-b border-sidebar-border/70 px-6 py-4 dark:border-sidebar-border">
                         <h2 class="font-semibold">Recent Users</h2>
                     </div>
@@ -165,6 +142,9 @@ const roleCards = [
                                     </th>
                                     <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
                                         Created
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                                        Details
                                     </th>
                                 </tr>
                             </thead>
@@ -188,6 +168,15 @@ const roleCards = [
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground">
                                         {{ new Date(user.created_at).toLocaleDateString() }}
+                                    </td>
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                        <Link
+                                            :href="admin.users.edit({ user: user.id }).url"
+                                            class="text-sky-600 hover:text-sky-600/80 rounded-md transition"
+                                            title="See User Details"
+                                        >
+                                            <Eye class="size-6" />
+                                        </Link>
                                     </td>
                                 </tr>
                             </tbody>
