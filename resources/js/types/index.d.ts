@@ -34,21 +34,23 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+    roles: string[];
 }
 
 export interface Paginated<T> {
-  data: T[];
-  current_page: number;
-  from: number | null;
-  to: number | null;
-  per_page: number;
-  last_page: number;
-  total: number;
-  path: string;
-  first_page_url: string;
-  last_page_url: string;
-  next_page_url: string | null;
-  prev_page_url: string | null;
+    links: { url: string | null; label: string; active: boolean }[];
+    data: T[];
+    current_page: number;
+    from: number | null;
+    to: number | null;
+    per_page: number;
+    last_page: number;
+    total: number;
+    path: string;
+    first_page_url: string;
+    last_page_url: string;
+    next_page_url: string | null;
+    prev_page_url: string | null;
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
