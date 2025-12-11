@@ -4,7 +4,7 @@ import  admin  from '@/routes/admin';
 import type  { Paginated, User, BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
-import { UserPlus, Search, Edit, Trash2 } from 'lucide-vue-next';
+import { UserPlus, Search, Edit, Trash2, Eye } from 'lucide-vue-next';
 import { getRoleBadgeColor } from '@/lib/utils';
 
 const props = defineProps<{
@@ -170,18 +170,25 @@ const deleteUser = (userId: number) => {
                                 <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                     <div class="flex justify-end gap-2">
                                         <Link
+                                            :href="admin.users.show({ user: user.id }).url"
+                                            class="text-primary hover:text-primary/80"
+                                            title="See details"
+                                        >
+                                            <Eye class="size-4" />
+                                        </Link>
+                                        <Link
                                             :href="admin.users.edit({ user: user.id }).url"
                                             class="text-primary hover:text-primary/80"
                                             title="Edit"
                                         >
-                                            <Edit class="h-4 w-4" />
+                                            <Edit class="size-4" />
                                         </Link>
                                         <button
                                             @click="deleteUser(user.id)"
                                             class="text-destructive hover:text-destructive/80"
                                             title="Delete"
                                         >
-                                            <Trash2 class="h-4 w-4" />
+                                            <Trash2 class="size-4" />
                                         </button>
                                     </div>
                                 </td>
