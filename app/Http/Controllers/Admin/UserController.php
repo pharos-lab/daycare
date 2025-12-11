@@ -84,7 +84,7 @@ class UserController extends Controller
      */
     public function show(User $user): Response
     {
-        return Inertia::render('Admin/Users/Show', [
+        return Inertia::render('admin/users/Show', [
             'user' => [
                 'id' => $user->id,
                 'name' => $user->name,
@@ -100,7 +100,7 @@ class UserController extends Controller
      */
     public function edit(User $user): Response
     {
-        return Inertia::render('Admin/Users/Edit', [
+        return Inertia::render('admin/users/Edit', [
             'user' => [
                 'id' => $user->id,
                 'name' => $user->name,
