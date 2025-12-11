@@ -14,6 +14,8 @@ defineProps<{
     items: NavItem[];
 }>();
 
+console.log();
+
 const page = usePage();
 </script>
 
