@@ -6,6 +6,7 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 import { UserPlus, Search, Edit, Trash2, Eye } from 'lucide-vue-next';
 import { getRoleBadgeColor } from '@/lib/utils';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const props = defineProps<{
     users: Paginated<User>;
@@ -70,42 +71,34 @@ const deleteUser = (userId: number) => {
             </div>
 
             <!-- Filters -->
-            <div class="rounded-xl border border-sidebar-border/70 bg-card p-4 dark:border-sidebar-border">
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-                    <!-- Search -->
-                    <div class="md:col-span-2">
-                        <label class="mb-2 block text-sm font-medium">
-                            Search
-                        </label>
-                        <div class="relative">
-                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                <Search class="h-4 w-4 text-muted-foreground" />
-                            </div>
-                            <input
-                                v-model="search"
-                                type="text"
-                                placeholder="Search by name or email..."
-                                class="block w-full rounded-lg border border-input bg-background pl-10 pr-3 py-2 text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                            />
-                        </div>
+            <div class="flex flex-col md:flex-row gap-4">
+                <!-- Search -->
+                <div class="relative grow">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <Search class="h-4 w-4 text-muted-foreground" />
                     </div>
+                    <input
+                        v-model="search"
+                        type="text"
+                        placeholder="Search by name or email..."
+                        class="block w-full h-full rounded-lg border border-input bg-background pl-10 pr-3 py-2 text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                </div>
 
-                    <!-- Role Filter -->
-                    <div>
-                        <label class="mb-2 block text-sm font-medium">
-                            Role
-                        </label>
-                        <select
-                            v-model="role"
-                            class="block w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                        >
-                            <option value="">All Roles</option>
-                            <option value="admin">Admin</option>
-                            <option value="director">Director</option>
-                            <option value="staff">Staff</option>
-                            <option value="parent">Parent</option>
-                        </select>
-                    </div>
+                <!-- Role Filter -->
+                <div class="md:w-48">
+                    <Select v-model="role" multiple>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select a role" />
+                        </SelectTrigger>
+
+                        <SelectContent class="w-full md:w-48">
+                            <SelectItem value="admin">Admin</SelectItem>
+                            <SelectItem value="director">Director</SelectItem>
+                            <SelectItem value="staff">Staff</SelectItem>
+                            <SelectItem value="parent">Parent</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
 
                 <!-- Reset Button -->
