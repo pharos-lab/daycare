@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
+import { getRoleBadgeColor } from '@/lib/utils';
 import { dashboard } from '@/routes/admin';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
@@ -36,13 +37,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const statCards = [
     {
-        title: 'Total Users',
-        value: props.stats.total_users,
-        icon: Users,
-        color: 'text-blue-600 dark:text-blue-400',
-        bgColor: 'bg-blue-100 dark:bg-blue-900/20',
-    },
-    {
         title: 'Admins',
         value: props.stats.total_admins,
         icon: UserCheck,
@@ -56,9 +50,33 @@ const statCards = [
         color: 'text-indigo-600 dark:text-indigo-400',
         bgColor: 'bg-indigo-100 dark:bg-indigo-900/20',
     },
+    {
+        title: 'Staff',
+        value: props.stats.total_staff,
+        icon: Users,
+        color: 'text-teal-600 dark:text-teal-400',
+        bgColor: 'bg-teal-100 dark:bg-teal-900/20',
+    },
+    {
+        title: 'Parents',
+        value: props.stats.total_parents,
+        icon: Users,
+        color: 'text-pink-600 dark:text-pink-400',
+        bgColor: 'bg-pink-100 dark:bg-pink-900/20',
+    },
 ];
 
 const roleCards = [
+    {
+        title: 'Admins',
+        value: props.stats.total_admins,
+        color: 'bg-purple-500 dark:bg-purple-600',
+    },
+    {
+        title: 'Directors',
+        value: props.stats.total_directors,
+        color: 'bg-indigo-500 dark:bg-indigo-600',
+    },
     {
         title: 'Staff',
         value: props.stats.total_staff,
@@ -69,21 +87,9 @@ const roleCards = [
         value: props.stats.total_parents,
         color: 'bg-pink-500 dark:bg-pink-600',
     },
+    
+    
 ];
-
-const getRoleBadgeColor = (roles: string[]) => {
-    if (!roles || roles.length === 0) return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300';
-    const role = roles[0];
-    
-    const colors: Record<string, string> = {
-        admin: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
-        director: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400',
-        staff: 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400',
-        parent: 'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-400',
-    };
-    
-    return colors[role] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300';
-};
 </script>
 
 <template>
@@ -92,7 +98,7 @@ const getRoleBadgeColor = (roles: string[]) => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
             <!-- Stats Cards -->
-            <div class="grid auto-rows-min gap-4 md:grid-cols-3">
+            <div class="grid auto-rows-min gap-4 md:grid-cols-4">
                 <div
                     v-for="stat in statCards"
                     :key="stat.title"
