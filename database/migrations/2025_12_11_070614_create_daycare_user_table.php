@@ -16,6 +16,11 @@ return new class extends Migration
             $table->foreignId('daycare_id')->constrained('daycares')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
+
+            $table->unique(['daycare_id', 'user_id']);
+            
+            $table->index('daycare_id');
+            $table->index('user_id');
         });
     }
 

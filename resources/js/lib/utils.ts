@@ -10,7 +10,10 @@ export function urlIsActive(
     urlToCheck: NonNullable<InertiaLinkProps['href']>,
     currentUrl: string,
 ) {
-    return toUrl(urlToCheck) === currentUrl;
+    const url = new URL(toUrl(urlToCheck), window.location.origin);
+    const current = new URL(currentUrl, window.location.origin);
+
+    return url.pathname === current.pathname;
 }
 
 export function toUrl(href: NonNullable<InertiaLinkProps['href']>) {

@@ -51,8 +51,14 @@ class User extends Authenticatable
         ];
     }
 
-    public function daycares()
+    public function daycares(): HasMany
     {
-        return $this->belongsToMany(Daycare::class);
+        return $this->hasMany(Daycare::class, 'director_id');
+    }
+
+    public function associatedDaycares(): BelongsToMany
+    {
+        return $this->belongsToMany(Daycare::class, 'daycare_user')
+            ->withTimestamps();
     }
 }

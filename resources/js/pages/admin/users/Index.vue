@@ -7,6 +7,7 @@ import { ref, watch } from 'vue';
 import { UserPlus, Search, Edit, Trash2, Eye } from 'lucide-vue-next';
 import { getRoleBadgeColor } from '@/lib/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 
 const props = defineProps<{
     users: Paginated<User>;
@@ -77,22 +78,22 @@ const deleteUser = (userId: number) => {
                     <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         <Search class="h-4 w-4 text-muted-foreground" />
                     </div>
-                    <input
+                    <Input
                         v-model="search"
                         type="text"
                         placeholder="Search by name or email..."
-                        class="block w-full h-full rounded-lg border border-input bg-background pl-10 pr-3 py-2 text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                        class="h-full pl-8"
                     />
                 </div>
 
                 <!-- Role Filter -->
-                <div class="md:w-48">
-                    <Select v-model="role" multiple>
+                <div class="md:w-48 lg:w-64 xl:w-96">
+                    <Select v-model="role" multiple class="">
                         <SelectTrigger>
                             <SelectValue placeholder="Select a role" />
                         </SelectTrigger>
 
-                        <SelectContent class="w-full md:w-48">
+                        <SelectContent class="md:w-48 lg:w-64 xl:w-96">
                             <SelectItem value="admin">Admin</SelectItem>
                             <SelectItem value="director">Director</SelectItem>
                             <SelectItem value="staff">Staff</SelectItem>
