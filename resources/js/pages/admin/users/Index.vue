@@ -207,7 +207,6 @@ const deleteUser = (userId: number) => {
                                 v-for="link in users.links"
                                 :key="link.label"
                                 :href="link.url || ''"
-                                v-html="link.label"
                                 :class="[
                                     'rounded border px-3 py-1 text-sm',
                                     link.active
@@ -217,7 +216,7 @@ const deleteUser = (userId: number) => {
                                 ]"
                                 :disabled="!link.url"
                                 preserve-scroll
-                            />
+                            >{{ link.label }}</Link>
                         </div>
                     </div>
                 </div>

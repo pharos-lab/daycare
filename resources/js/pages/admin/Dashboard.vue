@@ -65,31 +65,6 @@ const statCards = [
         bgColor: 'bg-pink-100 dark:bg-pink-900/20',
     },
 ];
-
-const roleCards = [
-    {
-        title: 'Admins',
-        value: props.stats.total_admins,
-        color: 'bg-purple-500 dark:bg-purple-600',
-    },
-    {
-        title: 'Directors',
-        value: props.stats.total_directors,
-        color: 'bg-indigo-500 dark:bg-indigo-600',
-    },
-    {
-        title: 'Staff',
-        value: props.stats.total_staff,
-        color: 'bg-teal-500 dark:bg-teal-600',
-    },
-    {
-        title: 'Parents',
-        value: props.stats.total_parents,
-        color: 'bg-pink-500 dark:bg-pink-600',
-    },
-    
-    
-];
 </script>
 
 <template>
