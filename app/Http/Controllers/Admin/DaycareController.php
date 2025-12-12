@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreDaycareRequest;
-use App\Http\Requests\Admin\UpdateDaycareRequest;
+use App\Http\Requests\Admin\Daycares\StoreDaycareRequest;
+use App\Http\Requests\Admin\Daycares\UpdateDaycareRequest;
 use App\Models\Daycare;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;

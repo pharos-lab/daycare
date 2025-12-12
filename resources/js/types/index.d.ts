@@ -58,16 +58,21 @@ export interface Daycare {
     name: string;
     city: string;
     address: string;
+    postal_code: string;
+    country: string;
     capacity: number;
     phone: string;
     email: string;
+    description: string;
     created_at: string;
     director: Director;
+    director_id: number;
 }
 
 export interface Director {
     id: number;
     name: string;
+    email?: string;
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;

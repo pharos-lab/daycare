@@ -35,13 +35,6 @@ const submit = () => {
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
             <!-- Header -->
             <div class="mb-2">
-                <Link
-                    :href="admin.users.index().url"
-                    class="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-                >
-                    <ArrowLeft class="h-4 w-4" />
-                    Back to Users
-                </Link>
                 <h1 class="text-2xl font-bold">Create New User</h1>
                 <p class="mt-1 text-sm text-muted-foreground">
                     Add a new user to the system
