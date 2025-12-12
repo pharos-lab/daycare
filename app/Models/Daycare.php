@@ -93,6 +93,14 @@ class Daycare extends Model
     }
 
     /**
+     * Check if a user is associated with this daycare
+     */
+    public function hasUser(int $userId): bool
+    {
+        return $this->users()->where('user_id', $userId)->exists();
+    }
+
+    /**
      * Check if a user is staff member in this daycare
      */
     public function hasStaffMember(int $userId): bool
