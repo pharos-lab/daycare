@@ -53,4 +53,21 @@ export interface Paginated<T> {
     prev_page_url: string | null;
 }
 
+export interface Daycare {
+    id: number;
+    name: string;
+    city: string;
+    address: string;
+    capacity: number;
+    phone: string;
+    email: string;
+    created_at: string;
+    director: Director;
+}
+
+export interface Director {
+    id: number;
+    name: string;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EnsureHasRole;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\DaycareController;
 
 Route::middleware(['auth', EnsureHasRole::class . ':admin'])
      ->prefix('admin')
@@ -11,7 +12,7 @@ Route::middleware(['auth', EnsureHasRole::class . ':admin'])
      ->group(function () {
           Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
          Route::resource('users', UserController::class);
-        //  Route::resource('daycares', DaycareController::class);
+         Route::resource('daycares', DaycareController::class);
         //  Route::resource('messages', MessageController::class);
      });
 // Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class)->names('admin.roles');

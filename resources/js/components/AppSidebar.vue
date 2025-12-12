@@ -11,23 +11,27 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes/admin';
+import admin from '@/routes/admin';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, User } from 'lucide-vue-next';
+import { BookOpen, Building, Folder, LayoutGrid, User } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
-import { index } from '@/routes/admin/users';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: dashboard(),
+        href: admin.dashboard(),
         icon: LayoutGrid,
     },
     {
         title: 'Users',
-        href: index(),
+        href: admin.users.index(),
         icon: User,
+    },
+    {
+        title: 'Daycares',
+        href: admin.daycares.index(),
+        icon: Building,
     },
 ];
 
@@ -51,7 +55,7 @@ const footerNavItems: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="dashboard()">
+                        <Link :href="admin.dashboard()">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>
