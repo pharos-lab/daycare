@@ -4,7 +4,7 @@ import admin   from '@/routes/admin';
 import { Daycare, Paginated, type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
-import { Building2, Search, Edit, Trash2, MapPin, Users } from 'lucide-vue-next';
+import { Building2, Search, Edit, Trash2, MapPin, Users, Eye } from 'lucide-vue-next';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 
@@ -97,96 +97,116 @@ const deleteDaycare = (daycareId: number) => {
                 </div>
             </div>
 
-            <!-- Daycares Grid -->
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                <Card
-                    v-for="daycare in daycares.data"
-                    :key="daycare.id"
-                    class="group relative p-6 transition-all shadow-sm  hover:shadow-md dark:border-sidebar-border"
-                >
-                    <!-- Daycare Name -->
-                    <div class="">
-                        <h3 class="text-lg font-semibold">{{ daycare.name }}</h3>
-                        <p class="text-sm text-muted-foreground">
-                            <MapPin class="inline-block h-3 w-3 mr-1" />
-                            {{ daycare.city }}
+            <div class="rounded-xl border border-sidebar-border/70 bg-card overflow-hidden dark:border-sidebar-border">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="border-b border-sidebar-border/70 bg-muted/50 dark:border-sidebar-border">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                                    Name
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                                    City
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                                    Capacity
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                                    Created Director
+                                </th>
+                                <th class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-sidebar-border/70 dark:divide-sidebar-border">
+                            <tr v-for="daycare in daycares.data" :key="daycare.id" class="hover:bg-muted/50">
+                                <td class="whitespace-nowrap px-6 py-4">
+                                    <div class="text-sm font-medium">
+                                        {{ daycare.name }}
+                                    </div>
+                                </td>
+                                <td class="whitespace-nowrap px-6 py-4">
+                                    <div class="text-sm text-muted-foreground">
+                                        {{ daycare.city }}
+                                    </div>
+                                </td>
+                                <td class="whitespace-nowrap px-6 py-4">
+                                    <div class="text-sm text-muted-foreground">
+                                        {{ daycare.capacity }}
+                                    </div>
+                                </td>
+                                <td class="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground">
+                                    {{ daycare.director.name }}
+                                </td>
+                                <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                    <div class="flex justify-end gap-2">
+                                        <Link
+                                            :href="admin.daycares.show({ daycare: daycare.id }).url"
+                                            class="text-primary hover:text-primary/80"
+                                            title="See details"
+                                        >
+                                            <Eye class="size-4" />
+                                        </Link>
+                                        <Link
+                                            :href="admin.daycares.edit({ daycare: daycare.id }).url"
+                                            class="text-primary hover:text-primary/80"
+                                            title="Edit"
+                                        >
+                                            <Edit class="size-4" />
+                                        </Link>
+                                        <button
+                                            @click="deleteDaycare(daycare.id)"
+                                            class="text-destructive hover:text-destructive/80"
+                                            title="Delete"
+                                        >
+                                            <Trash2 class="size-4" />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Empty State -->
+                    <div v-if="daycares.data.length === 0" class="rounded-xl border border-sidebar-border/70 bg-card p-12 text-center dark:border-sidebar-border">
+                        <Building2 class="mx-auto h-12 w-12 text-muted-foreground" />
+                        <h3 class="mt-4 text-lg font-semibold">No daycares found</h3>
+                        <p class="mt-2 text-sm text-muted-foreground">
+                            Get started by creating a new daycare.
                         </p>
-                    </div>
-
-                    <!-- Info -->
-                    <div class="space-y-2 text-sm grow flex flex-col justify-end">
-                        <div class="flex items-center gap-2">
-                            <Users class="h-4 w-4 text-muted-foreground" />
-                            <span>Capacity: {{ daycare.capacity }} children</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <Building2 class="h-4 w-4 text-muted-foreground" />
-                            <span>Director: {{ daycare.director.name }}</span>
-                        </div>
-                    </div>
-
-                    <!-- Actions -->
-                    <div class="flex gap-2 pt-4 border-t border-sidebar-border/70 dark:border-sidebar-border">
                         <Link
-                            :href="admin.daycares.show({ daycare: daycare.id }).url"
-                            class="flex-1 rounded-lg border border-input bg-background px-3 py-2 text-center text-sm font-medium hover:bg-muted"
+                            :href="admin.daycares.create().url"
+                            class="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
                         >
-                            View
+                            <Building2 class="h-4 w-4" />
+                            Create Daycare
                         </Link>
-                        <Link
-                            :href="admin.daycares.edit({ daycare: daycare.id }).url"
-                            class="rounded-lg border border-input bg-background px-3 py-2 text-sm hover:bg-muted"
-                        >
-                            <Edit class="h-4 w-4" />
-                        </Link>
-                        <button
-                            @click="deleteDaycare(daycare.id)"
-                            class="rounded-lg border border-destructive/50 bg-background px-3 py-2 text-sm text-destructive hover:bg-destructive/10"
-                        >
-                            <Trash2 class="h-4 w-4" />
-                        </button>
                     </div>
-                </Card>
-            </div>
+                </div>
 
-            <!-- Empty State -->
-            <div v-if="daycares.data.length === 0" class="rounded-xl border border-sidebar-border/70 bg-card p-12 text-center dark:border-sidebar-border">
-                <Building2 class="mx-auto h-12 w-12 text-muted-foreground" />
-                <h3 class="mt-4 text-lg font-semibold">No daycares found</h3>
-                <p class="mt-2 text-sm text-muted-foreground">
-                    Get started by creating a new daycare.
-                </p>
-                <Link
-                    :href="admin.daycares.create().url"
-                    class="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-                >
-                    <Building2 class="h-4 w-4" />
-                    Create Daycare
-                </Link>
-            </div>
-
-            <!-- Pagination -->
-            <div v-if="daycares.links.length > 3" class="rounded-xl border border-sidebar-border/70 bg-card px-4 py-3 dark:border-sidebar-border">
-                <div class="flex items-center justify-between">
-                    <div class="text-sm text-muted-foreground">
-                        Page {{ daycares.current_page }} of {{ daycares.last_page }}
-                    </div>
-                    <div class="flex gap-2">
-                        <Link
-                            v-for="link in daycares.links"
-                            :key="link.label"
-                            :href="link.url || '#'"
-                            v-html="link.label"
-                            :class="[
-                                'rounded border px-3 py-1 text-sm',
-                                link.active
-                                    ? 'border-primary bg-primary text-primary-foreground'
-                                    : 'border-input bg-background hover:bg-muted',
-                                !link.url ? 'cursor-not-allowed opacity-50' : ''
-                            ]"
-                            :disabled="!link.url"
-                            preserve-scroll
-                        />
+                <!-- Pagination -->
+                <div v-if="daycares.links.length" class="border-t border-sidebar-border/70 bg-muted/30 px-4 py-3 dark:border-sidebar-border">
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-muted-foreground">
+                            Page {{ daycares.current_page }} of {{ daycares.last_page }}
+                        </div>
+                        <div class="flex gap-2">
+                            <Link
+                                v-for="link in daycares.links"
+                                :key="link.label"
+                                :href="link.url || ''"
+                                :class="[
+                                    'rounded border px-3 py-1 text-sm',
+                                    link.active
+                                        ? 'border-primary bg-primary text-primary-foreground'
+                                        : 'border-input bg-background hover:bg-muted',
+                                    !link.url ? 'cursor-not-allowed opacity-50' : ''
+                                ]"
+                                :disabled="!link.url"
+                                preserve-scroll
+                            >{{ link.label.replace(/&amp;laquo;/, '').replace(/&amp;raquo;/g, '') }}</Link>
+                        </div>
                     </div>
                 </div>
             </div>

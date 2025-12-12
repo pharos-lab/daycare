@@ -216,7 +216,7 @@ const deleteUser = (userId: number) => {
                                 ]"
                                 :disabled="!link.url"
                                 preserve-scroll
-                            >{{ link.label }}</Link>
+                            >{{ link.label.replace(/&amp;laquo;/, '').replace(/&amp;raquo;/g, '') }}</Link>
                         </div>
                     </div>
                 </div>
