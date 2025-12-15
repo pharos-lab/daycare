@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -54,5 +55,33 @@ class UserFactory extends Factory
             'two_factor_recovery_codes' => null,
             'two_factor_confirmed_at' => null,
         ]);
+    }
+
+    public function admin(): static
+    {
+        return $this->afterCreating(
+            fn (User $user) => $user->assignRole('admin')
+        );
+    }
+
+    public function director(): static
+    {
+        return $this->afterCreating(
+            fn (User $user) => $user->assignRole('director')
+        );
+    }
+
+    public function staff(): static
+    {
+        return $this->afterCreating(
+            fn (User $user) => $user->assignRole('staff')
+        );
+    }
+
+    public function parent(): static
+    {
+        return $this->afterCreating(
+            fn (User $user) => $user->assignRole('parent')
+        );
     }
 }

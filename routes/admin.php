@@ -5,14 +5,16 @@ use App\Http\Middleware\EnsureHasRole;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DaycareController;
+use App\Http\Controllers\Admin\StaffController;
 
 Route::middleware(['auth', EnsureHasRole::class . ':admin'])
      ->prefix('admin')
      ->name('admin.')
      ->group(function () {
           Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-         Route::resource('users', UserController::class);
-         Route::resource('daycares', DaycareController::class);
+          Route::resource('users', UserController::class);
+          Route::resource('daycares', DaycareController::class);
+          Route::resource('staff', StaffController::class);
         //  Route::resource('messages', MessageController::class);
      });
 // Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class)->names('admin.roles');
