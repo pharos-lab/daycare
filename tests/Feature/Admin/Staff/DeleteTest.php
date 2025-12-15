@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
+    $this->seed(\Database\Seeders\RolePermissionSeeder::class);
+    
     $this->admin = User::factory()->create();
     $this->admin->assignRole('admin');
 
@@ -28,7 +30,7 @@ beforeEach(function () {
         'director_id' => $this->director->id,
     ]);
 
-    $this->staff->daycares()->attach($this->daycare->id);
+    $this->staff->associatedDaycares()->attach($this->daycare->id);
 });
 
 test('admin can delete staff member', function () {
