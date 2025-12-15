@@ -102,28 +102,7 @@ class StaffController extends Controller
         $staff->load(['daycares.director', 'profile']);
 
         return Inertia::render('admin/staff/Show', [
-            'staff' => [
-                'id' => $staff->id,
-                'name' => $staff->name,
-                'email' => $staff->email,
-                'phone' => $staff->profile->phone ?? null,
-                'address' => $staff->profile->address ?? null,
-                'city' => $staff->profile->city ?? null,
-                'postal_code' => $staff->profile->postal_code ?? null,
-                'country' => $staff->profile->country ?? null,
-                'position' => $staff->profile->position ?? null,
-                'hire_date' => $staff->profile->hire_date?->format('Y-m-d'),
-                'created_at' => $staff->created_at->format('Y-m-d H:i:s'),
-                'daycares' => $staff->daycares->map(fn ($daycare) => [
-                    'id' => $daycare->id,
-                    'name' => $daycare->name,
-                    'city' => $daycare->city,
-                    'director' => [
-                        'id' => $daycare->director->id,
-                        'name' => $daycare->director->name,
-                    ],
-                ]),
-            ],
+            'staff' => $staff
         ]);
     }
 
@@ -133,22 +112,10 @@ class StaffController extends Controller
     public function edit(User $staff): Response
     {
         $daycares = Daycare::select('id', 'name')->get();
-        $staff->load(['daycares', 'profile']);
+        $staff->load(['associatedDaycares', 'profile']);
 
         return Inertia::render('admin/staff/Edit', [
-            'staff' => [
-                'id' => $staff->id,
-                'name' => $staff->name,
-                'email' => $staff->email,
-                'phone' => $staff->profile->phone ?? null,
-                'address' => $staff->profile->address ?? null,
-                'city' => $staff->profile->city ?? null,
-                'postal_code' => $staff->profile->postal_code ?? null,
-                'country' => $staff->profile->country ?? 'France',
-                'position' => $staff->profile->position ?? null,
-                'hire_date' => $staff->profile->hire_date?->format('Y-m-d'),
-                'daycare_ids' => $staff->daycares->pluck('id')->toArray(),
-            ],
+            'staff' => $staff,
             'daycares' => $daycares,
         ]);
     }
@@ -183,7 +150,7 @@ class StaffController extends Controller
         );
 
         if ($request->has('daycare_ids')) {
-            $staff->daycares()->sync($request->daycare_ids ?? []);
+            $staff->associatedDaycares()->sync($request->daycare_ids ?? []);
         }
 
         return redirect()->route('admin.staff.index')

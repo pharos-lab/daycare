@@ -76,11 +76,18 @@ export interface Director {
 }
 
 interface StaffWithDaycares extends User {
-    profile: {
-        position?: string;
-        city?: string;
-    };
+    profile: Profile;
     associated_daycares: Daycare[];
+}
+
+export interface Profile {
+    phone?: string;
+    address?: string;
+    city?: string;
+    postal_code?: string;
+    country?: string;
+    position?: string;
+    hire_date?: string;
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;

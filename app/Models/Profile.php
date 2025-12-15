@@ -33,7 +33,7 @@ class Profile extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'hire_date' => 'date',
+        'hire_date' => 'date:Y-m-d',
     ];
 
 
