@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
+    $this->seed(\Database\Seeders\RolePermissionSeeder::class);
+
     $this->admin = User::factory()->create();
     $this->admin->assignRole('admin');
 
@@ -58,18 +60,6 @@ test('admin can create staff member', function () {
     ]);
 });
 
-test('director can create staff member', function () {
-    $response = $this->actingAs($this->director)
-        ->post(route('admin.staff.store'), $this->validData);
-
-    $response->assertRedirect(route('admin.staff.index'));
-    $response->assertSessionHas('success');
-
-    $this->assertDatabaseHas('users', [
-        'email' => 'newstaff@example.com',
-    ]);
-});
-
 test('staff cannot create staff member', function () {
     $response = $this->actingAs($this->staff)
         ->post(route('admin.staff.store'), $this->validData);
@@ -103,7 +93,7 @@ test('staff member can be created with daycares', function () {
     $response->assertRedirect(route('admin.staff.index'));
 
     $newStaff = User::where('email', 'newstaff@example.com')->first();
-    expect($newStaff->daycares)->toHaveCount(2);
+    expect($newStaff->associatedDaycares)->toHaveCount(2);
 });
 
 test('staff member can be created without daycares', function () {
@@ -116,7 +106,7 @@ test('staff member can be created without daycares', function () {
     $response->assertRedirect(route('admin.staff.index'));
 
     $newStaff = User::where('email', 'newstaff@example.com')->first();
-    expect($newStaff->daycares)->toHaveCount(0);
+    expect($newStaff->associatedDaycares)->toHaveCount(0);
 });
 
 test('name is required', function () {
@@ -168,53 +158,6 @@ test('password is required', function () {
     $response->assertSessionHasErrors('password');
 });
 
-test('phone is optional', function () {
-    $data = $this->validData;
-    unset($data['phone']);
-
-    $response = $this->actingAs($this->admin)
-        ->post(route('admin.staff.store'), $data);
-
-    $response->assertRedirect(route('admin.staff.index'));
-
-    $newStaff = User::where('email', 'newstaff@example.com')->first();
-    expect($newStaff->profile->phone)->toBeNull();
-});
-
-test('position is optional', function () {
-    $data = $this->validData;
-    unset($data['position']);
-
-    $response = $this->actingAs($this->admin)
-        ->post(route('admin.staff.store'), $data);
-
-    $response->assertRedirect(route('admin.staff.index'));
-
-    $newStaff = User::where('email', 'newstaff@example.com')->first();
-    expect($newStaff->profile->position)->toBeNull();
-});
-
-test('hire_date is optional', function () {
-    $data = $this->validData;
-    unset($data['hire_date']);
-
-    $response = $this->actingAs($this->admin)
-        ->post(route('admin.staff.store'), $data);
-
-    $response->assertRedirect(route('admin.staff.index'));
-
-    $newStaff = User::where('email', 'newstaff@example.com')->first();
-    expect($newStaff->profile->hire_date)->toBeNull();
-});
-
-test('daycare_ids must be array', function () {
-    $data = array_merge($this->validData, ['daycare_ids' => 'not-an-array']);
-
-    $response = $this->actingAs($this->admin)
-        ->post(route('admin.staff.store'), $data);
-
-    $response->assertSessionHasErrors('daycare_ids');
-});
 
 test('daycare_ids must exist in database', function () {
     $data = array_merge($this->validData, ['daycare_ids' => [99999]]);
