@@ -27,9 +27,33 @@ class Profile extends Model
         'user_id',
     ];
 
+     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'hire_date' => 'date',
+    ];
+
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    
+
+    /**
+     * Get the full address.
+     */
+    public function getFullAddressAttribute(): string
+    {
+        $parts = array_filter([
+            $this->address,
+            $this->postal_code . ' ' . $this->city,
+            $this->country,
+        ]);
+
+        return implode(', ', $parts);
     }
 }
