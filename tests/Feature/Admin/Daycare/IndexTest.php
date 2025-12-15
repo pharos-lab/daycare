@@ -15,7 +15,7 @@ describe('Daycare Index - Access Control', function () {
         $response = get(route('admin.daycares.index'));
 
         $response->assertOk();
-        $response->assertInertia(fn ($page) => $page->component('Admin/Daycares/Index'));
+        $response->assertInertia(fn ($page) => $page->component('admin/daycares/Index'));
     });
 
     it('denies access to non-admin users', function () {
@@ -43,7 +43,7 @@ describe('Daycare Index - Data Display', function () {
 
         $response->assertOk();
         $response->assertInertia(fn ($page) => $page
-            ->component('Admin/Daycares/Index')
+            ->component('admin/daycares/Index')
             ->has('daycares')
             ->has('daycares.data', 15) // Default pagination is 15
             ->has('daycares.links')
@@ -63,6 +63,7 @@ describe('Daycare Index - Data Display', function () {
             ->has('daycares.data.0', fn ($daycare) => $daycare
                 ->has('director')
                 ->where('director.name', 'Test Director')
+                ->etc()
             )
         );
     });

@@ -50,10 +50,7 @@ class DaycareController extends Controller
                 'phone' => $daycare->phone,
                 'email' => $daycare->email,
                 'created_at' => $daycare->created_at->format('Y-m-d H:i:s'),
-                'director' => [
-                    'id' => $daycare->director->id,
-                    'name' => $daycare->director->name,
-                ],
+                'director' => $daycare->director,
             ]),
             'filters' => $request->only(['search', 'director_id', 'sort', 'direction']),
         ]);
