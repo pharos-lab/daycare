@@ -65,7 +65,7 @@ export interface Daycare {
     email: string;
     description: string;
     created_at: string;
-    director: Director;
+    director?: Director;
     director_id: number;
 }
 
@@ -73,6 +73,14 @@ export interface Director {
     id: number;
     name: string;
     email?: string;
+}
+
+interface StaffWithDaycares extends User {
+    profile: {
+        position?: string;
+        city?: string;
+    };
+    associated_daycares: Daycare[];
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;

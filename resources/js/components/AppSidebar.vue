@@ -33,6 +33,11 @@ const mainNavItems: NavItem[] = [
         href: admin.daycares.index(),
         icon: Building,
     },
+    {
+        title: 'Staff',
+        href: admin.staff.index(),
+        icon: User,
+    },
 ];
 
 const footerNavItems: NavItem[] = [

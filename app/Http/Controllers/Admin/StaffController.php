@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreStaffRequest;
-use App\Http\Requests\Admin\UpdateStaffRequest;
+use App\Http\Requests\Admin\Staff\StoreStaffRequest;
+use App\Http\Requests\Admin\Staff\UpdateStaffRequest;
 use App\Models\Daycare;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -87,7 +87,7 @@ class StaffController extends Controller
         ]);
 
         if ($request->daycare_ids) {
-            $staff->daycares()->sync($request->daycare_ids);
+            $staff->associatedDaycares()->sync($request->daycare_ids);
         }
 
         return redirect()->route('admin.staff.index')

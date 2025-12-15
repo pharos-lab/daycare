@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import admin from '@/routes/admin';
-import { User, Daycare, Paginated, type BreadcrumbItem } from '@/types';
+import { User, Daycare, Paginated, type BreadcrumbItem, StaffWithDaycares } from '@/types';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 import { Users, Search, Edit, Trash2, Eye, UserPlus } from 'lucide-vue-next';
@@ -9,14 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 
-interface StaffWithDaycares extends User {
-    daycares: Daycare[];
-    profile: {
-        position?: string;
-        city?: string;
-    };
-    associated_daycares: Daycare[];
-}
+
 
 interface Filters {
     search?: string;
@@ -66,8 +59,7 @@ const deleteStaff = (staffId: number) => {
 
 <template>
     <Head title="Staff Management" />
-    <!-- <pre>{{  staff }}</pre> -->
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <AppLayout :breadcrumbs="breadcrumbs">  
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
             <!-- Header -->
             <div class="flex items-center justify-between">
