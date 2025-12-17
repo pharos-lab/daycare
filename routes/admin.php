@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DaycareController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\ParentController;
 
 Route::middleware(['auth', EnsureHasRole::class . ':admin'])
      ->prefix('admin')
@@ -15,6 +16,7 @@ Route::middleware(['auth', EnsureHasRole::class . ':admin'])
           Route::resource('users', UserController::class);
           Route::resource('daycares', DaycareController::class);
           Route::resource('staff', StaffController::class);
+          Route::resource('parents', ParentController::class);
         //  Route::resource('messages', MessageController::class);
      });
 // Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class)->names('admin.roles');

@@ -38,6 +38,11 @@ const mainNavItems: NavItem[] = [
         href: admin.staff.index(),
         icon: User,
     },
+    {
+        title: 'Parents',
+        href: admin.parents.index(),
+        icon: User,
+    },
 ];
 
 const footerNavItems: NavItem[] = [
