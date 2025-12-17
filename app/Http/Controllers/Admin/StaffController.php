@@ -99,7 +99,7 @@ class StaffController extends Controller
      */
     public function show(User $staff): Response
     {
-        $staff->load(['daycares.director', 'profile']);
+        $staff->load(['associatedDaycares.director', 'profile']);
 
         return Inertia::render('admin/staff/Show', [
             'staff' => $staff
