@@ -21,7 +21,7 @@ class ParentController extends Controller
     public function index(Request $request): Response
     {
         $parents = User::role('parent')
-            ->with(['daycares', 'profile'])
+            ->with(['associatedDaycares', 'profile'])
             ->when($request->search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%")
@@ -29,7 +29,7 @@ class ParentController extends Controller
                 });
             })
             ->when($request->daycare_id, function ($query, $daycareId) {
-                $query->whereHas('daycares', function ($q) use ($daycareId) {
+                $query->whereHas('associatedDaycares', function ($q) use ($daycareId) {
                     $q->where('daycares.id', $daycareId);
                 });
             })
@@ -45,18 +45,7 @@ class ParentController extends Controller
         $daycares = Daycare::select('id', 'name')->get();
 
         return Inertia::render('admin/parents/Index', [
-            'parents' => $parents->through(fn ($parent) => [
-                'id' => $parent->id,
-                'name' => $parent->name,
-                'email' => $parent->email,
-                'phone' => $parent->profile->phone ?? null,
-                'city' => $parent->profile->city ?? null,
-                'daycares' => $parent->daycares->map(fn ($daycare) => [
-                    'id' => $daycare->id,
-                    'name' => $daycare->name,
-                ]),
-                'created_at' => $parent->created_at->format('Y-m-d H:i:s'),
-            ]),
+            'parents' => $parents,
             'daycares' => $daycares,
             'filters' => $request->only(['search', 'daycare_id', 'sort', 'direction']),
         ]);

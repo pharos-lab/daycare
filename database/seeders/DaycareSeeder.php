@@ -17,6 +17,7 @@ class DaycareSeeder extends Seeder
             ->count(10)
             ->for(User::factory()->director(), 'director')
             ->has(User::factory()->count(5)->staff(), 'staff')
+            ->has(User::factory()->count(20)->parent(), 'parents')
             ->create();
 
         $this->command->info('Daycares created successfully!');

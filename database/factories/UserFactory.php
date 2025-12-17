@@ -85,8 +85,12 @@ class UserFactory extends Factory
 
     public function parent(): static
     {
-        return $this->afterCreating(
-            fn (User $user) => $user->assignRole('parent')
-        );
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('parent');
+
+            Profile::factory()->create([
+                'user_id' => $user->id,
+            ]);
+        });
     }
 }

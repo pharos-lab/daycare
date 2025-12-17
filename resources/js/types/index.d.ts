@@ -90,4 +90,9 @@ export interface Profile {
     hire_date?: string;
 }
 
+export interface Parent extends User {
+    profile: Profile;
+    associated_daycares: Daycare[];
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;
