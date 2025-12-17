@@ -90,12 +90,12 @@ const submit = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="password">New Password</Label>
+                                <Label for="password">Password</Label>
                                 <Input
                                     id="password"
                                     v-model="form.password"
                                     type="password"
-                                    placeholder="Leave blank to keep current"
+                                    placeholder=""
                                 />
                                 <p v-if="form.errors.password" class="text-sm text-destructive">
                                     {{ form.errors.password }}

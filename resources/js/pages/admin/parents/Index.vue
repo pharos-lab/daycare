@@ -50,7 +50,7 @@ const resetFilters = () => {
 
 const deleteStaff = (staffId: number) => {
     if (confirm('Are you sure you want to delete this staff member? This action cannot be undone.')) {
-        router.delete(admin.staff.destroy({ staff: staffId }).url, {
+        router.delete(admin.parents.destroy({ parent: staffId }).url, {
             preserveScroll: true,
         });
     }

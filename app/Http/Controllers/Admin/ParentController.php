@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreParentRequest;
-use App\Http\Requests\Admin\UpdateParentRequest;
+use App\Http\Requests\Admin\Parents\StoreParentRequest;
+use App\Http\Requests\Admin\Parents\UpdateParentRequest;
 use App\Models\Daycare;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -85,7 +85,7 @@ class ParentController extends Controller
         ]);
 
         if ($request->daycare_ids) {
-            $parent->daycares()->sync($request->daycare_ids);
+            $parent->associatedDaycares()->sync($request->daycare_ids);
         }
 
         return redirect()->route('admin.parents.index')
@@ -123,8 +123,6 @@ class ParentController extends Controller
      */
     public function update(UpdateParentRequest $request, User $parent): RedirectResponse
     {
-        $this->authorize('update', $parent);
-
         $data = [
             'name' => $request->name,
             'email' => $request->email,
@@ -160,8 +158,6 @@ class ParentController extends Controller
      */
     public function destroy(User $parent): RedirectResponse
     {
-        $this->authorize('delete', $parent);
-
         $parent->delete();
 
         return redirect()->route('admin.parents.index')
