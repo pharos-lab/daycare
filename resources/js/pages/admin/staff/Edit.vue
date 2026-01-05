@@ -45,7 +45,6 @@ const submit = () => {
     <Head title="Edit Staff Member" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <pre>{{ staff }}</pre>
         <div class="flex h-full flex-1 flex-col gap-6 p-4">
             <!-- Header -->
             <div class="flex items-center justify-between">

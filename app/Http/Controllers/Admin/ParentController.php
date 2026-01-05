@@ -146,7 +146,7 @@ class ParentController extends Controller
         );
 
         if ($request->has('daycare_ids')) {
-            $parent->daycares()->sync($request->daycare_ids ?? []);
+            $parent->associatedDaycares()->sync($request->daycare_ids ?? []);
         }
 
         return redirect()->route('admin.parents.index')
