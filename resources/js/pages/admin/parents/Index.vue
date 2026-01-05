@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import admin from '@/routes/admin';
-import { User, Daycare, Paginated, type BreadcrumbItem, StaffWithDaycares, Parent } from '@/types';
+import { Daycare, Paginated, type BreadcrumbItem, Parent } from '@/types';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 import { Users, Search, Edit, Trash2, Eye, UserPlus } from 'lucide-vue-next';
@@ -34,7 +34,7 @@ const search = ref(props.filters.search || '');
 const daycareFilter = ref(props.filters.daycare_id?.toString() || '');
 
 watch([search, daycareFilter], () => {
-    router.get(admin.staff.index().url, {
+    router.get(admin.parents.index().url, {
         search: search.value,
         daycare_id: daycareFilter.value || undefined,
     }, {
@@ -48,9 +48,9 @@ const resetFilters = () => {
     daycareFilter.value = '';
 };
 
-const deleteStaff = (staffId: number) => {
-    if (confirm('Are you sure you want to delete this staff member? This action cannot be undone.')) {
-        router.delete(admin.parents.destroy({ parent: staffId }).url, {
+const deleteParent = (parentId: number) => {
+    if (confirm('Are you sure you want to delete this parent? This action cannot be undone.')) {
+        router.delete(admin.parents.destroy({ parent: parentId }).url, {
             preserveScroll: true,
         });
     }
@@ -169,29 +169,29 @@ const deleteStaff = (staffId: number) => {
                                         >
                                             {{ daycare.name }}
                                         </Badge>
-                                        <!-- <span v-if="member.associated_daycares.length === 0" class="text-sm text-muted-foreground">
+                                        <span v-if="member.associated_daycares.length === 0" class="text-sm text-muted-foreground">
                                             No daycare
-                                        </span> -->
+                                        </span>
                                     </div>
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                     <div class="flex justify-end gap-2">
                                         <Link
-                                            :href="admin.staff.show({ staff: member.id }).url"
+                                            :href="admin.parents.show({ parent: member.id }).url"
                                             class="text-primary hover:text-primary/80"
                                             title="See details"
                                         >
                                             <Eye class="size-4" />
                                         </Link>
                                         <Link
-                                            :href="admin.staff.edit({ staff: member.id }).url"
+                                            :href="admin.parents.edit({ parent: member.id }).url"
                                             class="text-primary hover:text-primary/80"
                                             title="Edit"
                                         >
                                             <Edit class="size-4" />
                                         </Link>
                                         <button
-                                            @click="deleteStaff(member.id)"
+                                            @click="deleteParent(member.id)"
                                             class="text-destructive hover:text-destructive/80"
                                             title="Delete"
                                         >
