@@ -25,11 +25,11 @@ const form = useForm({
     name: props.parent.name,
     email: props.parent.email,
     password: '',
-    phone: props.parent.profile.phone || '',
-    address: props.parent.profile.address || '',
-    city: props.parent.profile.city || '',
-    postal_code: props.parent.profile.postal_code || '',
-    country: props.parent.profile.country || 'France',
+    phone: props.parent.profile?.phone || '',
+    address: props.parent.profile?.address || '',
+    city: props.parent.profile?.city || '',
+    postal_code: props.parent.profile?.postal_code || '',
+    country: props.parent.profile?.country || 'France',
     daycare_ids: props.parent.associated_daycares.map(daycare => daycare.id) || [] as number[],
 });
 

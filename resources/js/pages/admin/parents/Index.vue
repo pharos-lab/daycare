@@ -156,7 +156,7 @@ const deleteParent = (parentId: number) => {
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <div class="text-sm text-muted-foreground">
-                                        {{ member.profile.city || '-' }}
+                                        {{ member.profile?.city || '-' }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
