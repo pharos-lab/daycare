@@ -89,7 +89,10 @@ class ParentController extends Controller
         }
 
         return redirect()->route('admin.parents.index')
-            ->with('success', 'Parent created successfully.');
+            ->with('toast', [
+                'message' => 'Parent created successfully.',
+                'type' => 'success',
+            ]);
     }
 
     /**
@@ -150,7 +153,10 @@ class ParentController extends Controller
         }
 
         return redirect()->route('admin.parents.index')
-            ->with('success', 'Parent updated successfully.');
+            ->with('toast', [
+                'message' => 'Parent updated successfully.',
+                'type' => 'success',
+            ]);
     }
 
     /**
@@ -161,6 +167,9 @@ class ParentController extends Controller
         $parent->delete();
 
         return redirect()->route('admin.parents.index')
-            ->with('success', 'Parent deleted successfully.');
+            ->with('toast', [
+                'message' => 'Parent deleted successfully.',
+                'type' => 'success',
+            ]);
     }
 }

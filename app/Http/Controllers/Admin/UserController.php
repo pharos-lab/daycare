@@ -76,7 +76,10 @@ class UserController extends Controller
         $user->assignRole($request->role);
 
         return redirect()->route('admin.users.index')
-            ->with('success', "User {$user->name} created successfully.");
+            ->with('toast', [
+                'message' => 'User created successfully.',
+                'type' => 'success',
+            ]);
     }
 
     /**
@@ -131,7 +134,10 @@ class UserController extends Controller
         $user->syncRoles([$request->role]);
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'User updated successfully.');
+            ->with('toast', [
+                'message' => 'User updated successfully.',
+                'type' => 'success',
+            ]);
     }
 
     /**
@@ -148,6 +154,9 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'User deleted successfully.');
+            ->with('toast', [
+                'message' => 'User deleted successfully.',
+                'type' => 'success',
+            ]);
     }
 }

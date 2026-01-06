@@ -172,7 +172,10 @@ class DaycareController extends Controller
         ]);
 
         return redirect()->route('admin.daycares.index')
-            ->with('success', 'Daycare updated successfully.');
+            ->with('toast', [
+                'message' => 'Daycare updated successfully.',
+                'type' => 'success',
+            ]);
     }
 
     /**
@@ -183,6 +186,9 @@ class DaycareController extends Controller
         $daycare->delete();
 
         return redirect()->route('admin.daycares.index')
-            ->with('success', 'Daycare deleted successfully.');
+            ->with('toast', [
+                'message' => 'Daycare deleted successfully.',
+                'type' => 'success',
+            ]);
     }
 }

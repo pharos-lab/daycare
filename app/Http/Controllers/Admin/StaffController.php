@@ -91,7 +91,10 @@ class StaffController extends Controller
         }
 
         return redirect()->route('admin.staff.index')
-            ->with('success', 'Staff member created successfully.');
+            ->with('toast', [
+                'message' => 'Staff member created successfully.',
+                'type' => 'success',
+            ]);
     }
 
     /**
@@ -154,7 +157,10 @@ class StaffController extends Controller
         }
 
         return redirect()->route('admin.staff.index')
-            ->with('success', 'Staff member updated successfully.');
+            ->with('toast', [
+                'message' => 'Staff member updated successfully.',
+                'type' => 'success',
+            ]);
     }
 
     /**
@@ -165,6 +171,9 @@ class StaffController extends Controller
         $staff->delete();
 
         return redirect()->route('admin.staff.index')
-            ->with('success', 'Staff member deleted successfully.');
+            ->with('toast', [
+                'message' => 'Staff member deleted successfully.',
+                'type' => 'success',
+            ]);
     }
 }
