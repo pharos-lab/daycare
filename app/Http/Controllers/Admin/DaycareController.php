@@ -88,7 +88,11 @@ class DaycareController extends Controller
         ]);
 
         return redirect()->route('admin.daycares.index')
-            ->with('success', 'Daycare created successfully.');
+            ->with('toast', [
+                'message' => 'Daycare created successfully.',
+                'type' => 'success',
+            ]
+        );
     }
 
     /**

@@ -24,6 +24,12 @@ export type AppPageProps<
     quote: { message: string; author: string };
     auth: Auth;
     sidebarOpen: boolean;
+    flash?: {
+        toast?: {
+            type: 'success' | 'error';
+            message: string;
+        };
+    };
 };
 
 export interface User {
