@@ -29,7 +29,7 @@ describe('Daycare Store - Access Control', function () {
         $response = post(route('admin.daycares.store'), $daycareData);
 
         $response->assertRedirect(route('admin.daycares.index'));
-        $response->assertSessionHas('success');
+        $response->assertSessionHas('toast');
     });
 
     it('denies non-admin users from creating daycares', function () {
@@ -354,7 +354,7 @@ describe('Daycare Store - Response', function () {
         $response->assertRedirect(route('admin.daycares.index'));
     });
 
-    it('returns success message after creation', function () {
+    it('returns toast message after creation', function () {
         actingAsAdmin();
         $director = createDirector();
 
@@ -371,6 +371,6 @@ describe('Daycare Store - Response', function () {
 
         $response = post(route('admin.daycares.store'), $daycareData);
 
-        $response->assertSessionHas('success');
+        $response->assertSessionHas('toast');
     });
 });

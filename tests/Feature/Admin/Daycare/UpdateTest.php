@@ -27,7 +27,7 @@ describe('Daycare Update - Access Control', function () {
         ]);
 
         $response->assertRedirect(route('admin.daycares.index'));
-        $response->assertSessionHas('success');
+        $response->assertSessionHas('toast');
     });
 
     it('denies non-admin users from updating daycares', function () {
@@ -218,7 +218,7 @@ describe('Daycare Update - Response', function () {
         $response->assertRedirect(route('admin.daycares.index'));
     });
 
-    it('returns success message after update', function () {
+    it('returns toast message after update', function () {
         actingAsAdmin();
         
         $daycare = Daycare::factory()->create();
@@ -234,6 +234,6 @@ describe('Daycare Update - Response', function () {
             'capacity' => $daycare->capacity,
         ]);
 
-        $response->assertSessionHas('success');
+        $response->assertSessionHas('toast');
     });
 });

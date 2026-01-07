@@ -49,7 +49,7 @@ test('admin can update parent', function () {
         ->put(route('admin.parents.update', $this->parent), $this->updateData);
 
     $response->assertRedirect(route('admin.parents.index'));
-    $response->assertSessionHas('success');
+    $response->assertSessionHas('toast');
 
     $this->assertDatabaseHas('users', [
         'id' => $this->parent->id,
@@ -107,8 +107,8 @@ test('parent daycares can be updated', function () {
     $response->assertRedirect(route('admin.parents.index'));
 
     $this->parent->refresh();
-    expect($this->parent->daycares)->toHaveCount(1);
-    expect($this->parent->daycares->first()->id)->toBe($daycare2->id);
+    expect($this->parent->associatedDaycares)->toHaveCount(1);
+    expect($this->parent->associatedDaycares->first()->id)->toBe($daycare2->id);
 });
 
 test('parent can be updated without daycares', function () {

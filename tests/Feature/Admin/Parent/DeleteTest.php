@@ -41,7 +41,7 @@ test('admin can delete parent', function () {
     $response->assertRedirect(route('admin.parents.index'));
     $response->assertSessionHas('toast');
 
-    $this->assertSoftDeleted('users', [
+    $this->assertDatabaseMissing('users', [
         'id' => $parentId,
     ]);
 });
@@ -54,7 +54,6 @@ test('parent cannot delete themselves', function () {
 
     $this->assertDatabaseHas('users', [
         'id' => $this->parent->id,
-        'deleted_at' => null,
     ]);
 });
 
@@ -66,7 +65,6 @@ test('parent cannot delete other parents', function () {
 
     $this->assertDatabaseHas('users', [
         'id' => $this->otherParent->id,
-        'deleted_at' => null,
     ]);
 });
 
@@ -77,7 +75,6 @@ test('guest cannot delete parent', function () {
 
     $this->assertDatabaseHas('users', [
         'id' => $this->parent->id,
-        'deleted_at' => null,
     ]);
 });
 
@@ -91,7 +88,7 @@ test('parent with no profile can be deleted', function () {
     $response->assertRedirect(route('admin.parents.index'));
     $response->assertSessionHas('toast');
 
-    $this->assertSoftDeleted('users', [
+    $this->assertDatabaseMissing('users', [
         'id' => $parentWithoutProfile->id,
     ]);
 });

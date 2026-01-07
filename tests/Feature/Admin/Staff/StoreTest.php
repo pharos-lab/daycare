@@ -42,7 +42,7 @@ test('admin can create staff member', function () {
         ->post(route('admin.staff.store'), $this->validData);
 
     $response->assertRedirect(route('admin.staff.index'));
-    $response->assertSessionHas('success');
+    $response->assertSessionHas('toast');
 
     $this->assertDatabaseHas('users', [
         'name' => 'New Staff Member',

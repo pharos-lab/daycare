@@ -17,7 +17,7 @@ describe('User Destroy - Access Control', function () {
         $response = delete(route('admin.users.destroy', $user));
 
         $response->assertRedirect(route('admin.users.index'));
-        $response->assertSessionHas('success');
+        $response->assertSessionHas('toast');
     });
 
     it('denies non-admin users from deleting users', function () {
@@ -103,14 +103,14 @@ describe('User Destroy - Response', function () {
         $response->assertRedirect(route('admin.users.index'));
     });
 
-    it('returns success message after deletion', function () {
+    it('returns toast message after deletion', function () {
         actingAsAdmin();
         
         $user = createDirector();
 
         $response = delete(route('admin.users.destroy', $user));
 
-        $response->assertSessionHas('success');
+        $response->assertSessionHas('toast');
     });
 });
 

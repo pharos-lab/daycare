@@ -21,7 +21,7 @@ describe('User Update - Access Control', function () {
         ]);
 
         $response->assertRedirect(route('admin.users.index'));
-        $response->assertSessionHas('success');
+        $response->assertSessionHas('toast');
     });
 
     it('denies non-admin users from updating users', function () {
@@ -291,7 +291,7 @@ describe('User Update - Response', function () {
         $response->assertRedirect(route('admin.users.index'));
     });
 
-    it('returns success message after update', function () {
+    it('returns toast message after update', function () {
         actingAsAdmin();
         
         $user = createDirector();
@@ -302,6 +302,6 @@ describe('User Update - Response', function () {
             'role' => 'director',
         ]);
 
-        $response->assertSessionHas('success');
+        $response->assertSessionHas('toast');
     });
 });

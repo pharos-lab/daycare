@@ -52,7 +52,7 @@ test('admin can update staff member', function () {
         ->put(route('admin.staff.update', $this->staff), $this->updateData);
 
     $response->assertRedirect(route('admin.staff.index'));
-    $response->assertSessionHas('success');
+    $response->assertSessionHas('toast');
 
     $this->assertDatabaseHas('users', [
         'id' => $this->staff->id,

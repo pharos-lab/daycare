@@ -40,9 +40,9 @@ test('admin can delete staff member', function () {
         ->delete(route('admin.staff.destroy', $this->staff));
 
     $response->assertRedirect(route('admin.staff.index'));
-    $response->assertSessionHas('success');
+    $response->assertSessionHas('toast');
 
-    $this->assertSoftDeleted('users', [
+    $this->assertDatabaseMissing('users', [
         'id' => $staffId,
     ]);
 });
@@ -54,6 +54,5 @@ test('guest cannot delete staff member', function () {
 
     $this->assertDatabaseHas('users', [
         'id' => $this->staff->id,
-        'deleted_at' => null,
     ]);
 });

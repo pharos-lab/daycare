@@ -16,7 +16,7 @@ describe('Daycare Destroy - Access Control', function () {
         $response = delete(route('admin.daycares.destroy', $daycare));
 
         $response->assertRedirect(route('admin.daycares.index'));
-        $response->assertSessionHas('success');
+        $response->assertSessionHas('toast');
     });
 
     it('denies non-admin users from deleting daycares', function () {
@@ -70,14 +70,14 @@ describe('Daycare Destroy - Response', function () {
         $response->assertRedirect(route('admin.daycares.index'));
     });
 
-    it('returns success message after deletion', function () {
+    it('returns toast message after deletion', function () {
         actingAsAdmin();
         
         $daycare = Daycare::factory()->create();
 
         $response = delete(route('admin.daycares.destroy', $daycare));
 
-        $response->assertSessionHas('success');
+        $response->assertSessionHas('toast');
     });
 });
 
