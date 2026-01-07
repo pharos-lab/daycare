@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Daycare extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -75,6 +75,11 @@ class Daycare extends Model
     public function parents(): BelongsToMany
     {
         return $this->users()->role('parent');
+    }
+
+    public function children(): hasMany
+    {
+        return $this->hasMany(Child::class);
     }
 
     /**

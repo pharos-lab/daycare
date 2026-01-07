@@ -70,4 +70,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    public function children(): BelongsToMany
+    {
+        return $this->belongsToMany(Child::class, 'child_parent')
+            ->withPivot('relationship')
+            ->withTimestamps();
+    }
 }
