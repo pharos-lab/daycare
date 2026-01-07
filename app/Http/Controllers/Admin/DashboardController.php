@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Child;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -33,7 +34,7 @@ class DashboardController extends Controller
             'total_users' => User::count(),
             
             // Users by role
-            'total_admins' => User::role('admin')->count(),
+            'total_children' => Child::count(),
             'total_directors' => User::role('director')->count(),
             'total_staff' => User::role('staff')->count(),
             'total_parents' => User::role('parent')->count(),

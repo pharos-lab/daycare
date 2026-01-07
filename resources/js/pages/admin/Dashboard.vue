@@ -8,7 +8,7 @@ import { Users, UserCheck, Building2, Eye } from 'lucide-vue-next';
 
 interface Stats {
     total_users: number;
-    total_admins: number;
+    total_children: number;
     total_directors: number;
     total_staff: number;
     total_parents: number;
@@ -37,13 +37,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const statCards = [
     {
-        title: 'Admins',
-        value: props.stats.total_admins,
-        icon: UserCheck,
-        color: 'text-purple-600 dark:text-purple-400',
-        bgColor: 'bg-purple-100 dark:bg-purple-900/20',
-    },
-    {
         title: 'Directors',
         value: props.stats.total_directors,
         icon: Building2,
@@ -63,6 +56,13 @@ const statCards = [
         icon: Users,
         color: 'text-pink-600 dark:text-pink-400',
         bgColor: 'bg-pink-100 dark:bg-pink-900/20',
+    },
+    {
+        title: 'Children',
+        value: props.stats.total_children,
+        icon: Users,
+        color: 'text-purple-600 dark:text-purple-400',
+        bgColor: 'bg-purple-100 dark:bg-purple-900/20',
     },
 ];
 </script>
