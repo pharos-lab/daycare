@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Child;
 use App\Http\Requests\Admin\StoreChildRequest;
 use App\Http\Requests\Admin\UpdateChildRequest;
+use App\Http\Controllers\Controller;
 
 class ChildController extends Controller
 {
