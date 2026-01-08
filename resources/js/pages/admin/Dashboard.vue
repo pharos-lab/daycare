@@ -7,7 +7,6 @@ import { Head, Link } from '@inertiajs/vue3';
 import { Users, UserCheck, Building2, Eye } from 'lucide-vue-next';
 
 interface Stats {
-    total_users: number;
     total_children: number;
     total_directors: number;
     total_staff: number;
