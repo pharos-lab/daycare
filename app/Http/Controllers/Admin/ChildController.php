@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreChildRequest;
-use App\Http\Requests\Admin\UpdateChildRequest;
+use App\Http\Requests\Admin\Children\StoreChildRequest;
+use App\Http\Requests\Admin\Children\UpdateChildRequest;
 use App\Models\Child;
 use App\Models\Daycare;
 use App\Models\User;
@@ -110,7 +110,7 @@ class ChildController extends Controller
         $daycares = Daycare::select('id', 'name')->get();
 
         $parents = User::role('parent')->select('id', 'name')->get();
-        
+
         $child->load('parents');
 
         return Inertia::render('admin/children/Edit', [

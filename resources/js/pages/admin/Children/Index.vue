@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import admin from '@/routes/admin';
-import { Daycare, Paginated, type BreadcrumbItem } from '@/types';
+import { Child, Daycare, Paginated, type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 import { Baby, Search, Edit, Trash2, Eye, UserPlus } from 'lucide-vue-next';
@@ -9,24 +9,6 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 
-interface Child {
-    id: number;
-    first_name: string;
-    last_name: string;
-    full_name: string;
-    birth_date: string;
-    age: number;
-    gender?: string;
-    daycare: {
-        id: number;
-        name: string;
-    };
-    parents: Array<{
-        id: number;
-        name: string;
-    }>;
-    created_at: string;
-}
 
 interface Filters {
     search?: string;

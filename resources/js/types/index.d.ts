@@ -101,4 +101,17 @@ export interface Parent extends User {
     associated_daycares: Daycare[];
 }
 
+interface Child {
+    id: number;
+    first_name: string;
+    last_name: string;
+    full_name: string;
+    birth_date: string;
+    age: number;
+    gender?: string;
+    daycare: Daycare;
+    parents: Parent[];
+    created_at: string;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

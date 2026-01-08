@@ -111,7 +111,7 @@ test('children index filters persist in query string', function () {
     $response->assertOk();
     $response->assertInertia(fn ($page) => $page
         ->where('filters.search', 'test')
-        ->where('filters.daycare_id', $this->daycare->id)
+        ->where('filters.daycare_id', strval($this->daycare->id))
     );
 });
 
